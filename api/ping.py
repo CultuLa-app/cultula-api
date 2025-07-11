@@ -3,7 +3,7 @@ from mangum import Mangum
 
 app = FastAPI()
 
-@app.get("/ping")
+@app.get("/")
 async def ping():
     return {"pong": "hello from CultuLa API!"}
 
