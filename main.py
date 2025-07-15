@@ -1,5 +1,4 @@
-from fastapi import FastAPI, HTTPException
-from mangum import Mangum
+from fastapi import FastAPI
 from pydantic import BaseModel
 
 app = FastAPI()
@@ -14,7 +13,5 @@ class ChatRequest(BaseModel):
 @app.post("/chat")
 async def chat(req: ChatRequest):
     user_msg = req.message
-    # echo for now; later replace with OpenAI calls
     return {"reply": f"You said: {user_msg}"}
 
-handler = Mangum(app)
