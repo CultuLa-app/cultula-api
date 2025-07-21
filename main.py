@@ -1,5 +1,5 @@
 import os
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, File, UploadFile
 from pydantic import BaseModel
 from openai import OpenAI
 
@@ -30,4 +30,16 @@ async def chat(req: ChatRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.post("/listen")
+async def listen(audio: UploadFile = File(...)):
+    content = await audio.read()
+    try:
+        result = client.audio.transcriptions.create(
+            model="whisper-1",
+            file=content,
+            response_format="json"
+        )
+        return {"text": result["text"]}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
