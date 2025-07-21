@@ -1,4 +1,5 @@
 import os
+import cloudinary.uploader
 from fastapi import FastAPI, HTTPException, File, UploadFile
 from pydantic import BaseModel
 from openai import OpenAI
