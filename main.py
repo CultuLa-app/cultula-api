@@ -8,6 +8,11 @@ import json
 from google.oauth2 import service_account
 from google.cloud import texttospeech
 
+_creds_json = base64.b64decode(os.environ["GOOGLE_CREDENTIALS_BASE64"])
+_sa_info = json.loads(_creds_json)
+
+credentials = service_account.Credentials.from_service_account_info(_sa_info)
+tts_client = texttospeech.TextToSpeechClient(credentials=credentials)
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
