@@ -3,6 +3,10 @@ import cloudinary.uploader
 from fastapi import FastAPI, HTTPException, File, UploadFile
 from pydantic import BaseModel
 from openai import OpenAI
+import base64
+import json
+from google.oauth2 import service_account
+from google.cloud import texttospeech
 
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
