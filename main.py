@@ -53,3 +53,36 @@ async def listen(audio: UploadFile = File(...)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+class TTSRequest(BaseModel):
+    text: str
+    voice: str = "ja-JP-Wavenet-A"
+    speed: float = 1.0
+
+@app.post("/tts")
+async def tts(req: TTSRequest):
+    synthesis_input = texttospeech.SynthesisInput(text=req.text)
+    voice_params = texttospeech.VoiceSelectionParams(
+        language_code="ja-JP", name=req.voice
+    )
+    audio_config = texttospeech.AudioConfig(
+        audio_encoding=texttospeech.AudioEncoding.MP3,
+        speaking_rate=req.speed
+    )
+
+    try:
+        resp = tts_client.synthesize_speech(
+            input=synthesis_input,
+            voice=voice_params,
+            audio_config=audio_config
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"TTS error: {e}")
+
+    upload = cloudinary.uploader.upload(
+        resp.audio_content,
+        resource_type="raw",
+        public_id=f"tts/{abs(hash(req.text))}"
+    )
+
+    return {"url": upload["secure_url"]}
+
