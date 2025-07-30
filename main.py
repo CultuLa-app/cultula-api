@@ -55,7 +55,23 @@ async def listen(audio: UploadFile = File(...)):
             response_format="json"
         )
 
-        return {"text": result["text"]}
+        @app.post("/listen")
+async def listen(audio: UploadFile = File(...)):
+    try:
+        contents = await audio.read()
+        buffer = io.BytesIO(contents)
+        buffer.name = audio.filename or "audio.wav"
+
+        result = client.audio.transcriptions.create(
+            model="whisper-1",
+            file=buffer,
+            response_format="json"
+        )
+
+        return {"text": result.text}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
