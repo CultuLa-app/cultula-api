@@ -42,11 +42,12 @@ async def chat(req: ChatRequest):
 
 @app.post("/listen")
 async def listen(audio: UploadFile = File(...)):
-    content = await audio.read()
     try:
+        audio.file.seek(0)
+
         result = client.audio.transcriptions.create(
             model="whisper-1",
-            file=content,
+            file=audio.file,
             response_format="json"
         )
         return {"text": result["text"]}
