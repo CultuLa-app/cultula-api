@@ -1,4 +1,5 @@
 import os
+import io 
 import cloudinary.uploader
 from fastapi import FastAPI, HTTPException, File, UploadFile
 from pydantic import BaseModel
@@ -43,13 +44,17 @@ async def chat(req: ChatRequest):
 @app.post("/listen")
 async def listen(audio: UploadFile = File(...)):
     try:
-        audio.file.seek(0)
+        contents = await audio.read()
+
+        buffer = io.BytesIO(contents)
+        buffer.name = audio.filename or "audio.wav"
 
         result = client.audio.transcriptions.create(
             model="whisper-1",
-            file=audio.file,
+            file=buffer,
             response_format="json"
         )
+
         return {"text": result["text"]}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
