@@ -55,7 +55,7 @@ async def listen(audio: UploadFile = File(...)):
             response_format="json"
         )
 
-        @app.post("/listen")
+@app.post("/listen")
 async def listen(audio: UploadFile = File(...)):
     try:
         contents = await audio.read()
@@ -67,13 +67,9 @@ async def listen(audio: UploadFile = File(...)):
             file=buffer,
             response_format="json"
         )
-
         return {"text": result.text}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e))X
 
 class TTSRequest(BaseModel):
     text: str
