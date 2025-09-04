@@ -1,11 +1,42 @@
+# Python
 __pycache__/
 *.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+dist/
+build/
+
+# macOS
 .DS_Store
+
+# Virtual environments
 .venv/
+env/
+venv/
+
+# Logs
 *.log
-.vercel/
-.heroku/
+
+# IDE / Editor settings
 .idea/
 .vscode/
 
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+.expo/
+.expo-shared/
+
+# Cloud / Deployment
+.vercel/
+.heroku/
 *.save
+
+# Expo / React Native build
+android/
+ios/
+web-build/
+
