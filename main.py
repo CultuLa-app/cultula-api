@@ -97,7 +97,7 @@ async def tts(req: TTSRequest):
         upload = cloudinary.uploader.upload(
             io.BytesIO(resp.audio_content),
             resource_type="video",
-            public_id=f"tts/{abs(hash(req.text))}"
+            public_id=f"tts/{abs(hash(req.text))}",
             format="mp3"
         )
     except Exception as e:
@@ -136,7 +136,7 @@ async def talk_from_tts(req: TalkFromTTSRequest):
         up = cloudinary.uploader.upload(
             io.BytesIO(tts_resp.audio_content),
             resource_type="video",
-            public_id=f"tts/{abs(hash(req.text))}"
+            public_id=f"tts/{abs(hash(req.text))}",
             format="mp3"
         )
         audio_url = up["secure_url"]
