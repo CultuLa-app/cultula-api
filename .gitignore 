@@ -1,3 +1,6 @@
+# macOS
+.DS_Store
+
 # Python
 __pycache__/
 *.py[cod]
@@ -21,9 +24,6 @@ yarn-error.log
 .expo/
 .expo-shared/
 
-# macOS
-.DS_Store
-
 # VSCode
 .vscode/
 
@@ -36,3 +36,6 @@ output.mp3
 web-build/
 dist/
 build/
+
+# Backup
+*.save
