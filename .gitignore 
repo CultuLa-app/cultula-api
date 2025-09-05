@@ -5,48 +5,34 @@ __pycache__/
 *.pyd
 *.so
 *.egg-info/
-dist/
-build/
-
-# macOS
-.DS_Store
+.eggs/
+*.log
 
 # Virtual environments
 .venv/
 env/
 venv/
 
-# Logs
-*.log
-
-# IDE / Editor settings
-.idea/
-.vscode/
-
-# Node.js
+# Node/Expo
 node_modules/
 npm-debug.log
+yarn-debug.log
 yarn-error.log
 .expo/
 .expo-shared/
 
-# Cloud / Deployment
-.vercel/
-.heroku/
-*.save
-
-# Expo / React Native build
-android/
-ios/
-web-build/
-__pycache__/
-*.py[cod]
+# macOS
 .DS_Store
-.venv/
-*.log
-.vercel/
-.heroku/
-.idea/
+
+# VSCode
 .vscode/
 
-*.save
+# Heroku
+output.mp3
+*.sqlite3
+*.db
+
+# Firebase/Expo generated
+web-build/
+dist/
+build/
